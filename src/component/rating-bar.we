@@ -1,0 +1,37 @@
+<template>
+    <div class="wrapper">
+        <image repeat="{{image in images}}" style="width: {{itemWidth}}; height:{{itemHeight}}; margin-right: {{itemPadding}} " src = {{image}}></image>
+    </div>
+</template>
+
+
+<style>
+    .wrapper{
+        flex-direction: row;
+    }
+</style>
+
+<script>
+    require('weex-components');
+    module.exports = {
+        data:{
+            itemPadding:13,
+            itemWidth:20,
+            itemHeight:20,
+            totalBarNum:5,
+            progressBarNum:3,
+            images:[],
+        },
+        created:function(){
+           for(var i = 0;i < this.totalBarNum;i++){
+                if(i < this.progressBarNum){
+                    this.images.push("/images/ic_star_select.png");
+                }else{
+                    this.images.push("/images/ic_star_normal.png");
+                }
+
+            }
+        },
+        methods:{}
+    }
+</script>

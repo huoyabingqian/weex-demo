@@ -1,0 +1,21 @@
+<template>
+    <div >
+        <text>Hello Weex</text>
+    </div>
+</template>
+
+
+
+<style></style>
+
+
+<script>
+    var rowNum;
+    module.exports = {
+        data:{
+            columnNum:3,
+            data:[],
+        },
+
+    }
+</script>

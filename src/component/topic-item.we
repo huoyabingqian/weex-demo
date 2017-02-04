@@ -1,0 +1,186 @@
+<template>
+    <div class="wraper">
+        <div class="topic-margin">
+            <!--头像 昵称 及时间 -->
+            <div class="portrait-container">
+                <image src="{{topicItemData.avatar}}" class="portrait" resize="contain"></image>
+                <div class="nick-container">
+                    <text class="nick">{{topicItemData.nickName}}</text>
+                    <text class="date">{{topicItemData.lastUpdated}}</text>
+                </div>
+            </div>
+
+            <!--帖子说明-->
+            <div>
+                <text class="topic-text-cate">#{{topicItemData.categoryTitle}}#</text>
+                <text class="topic-text">{{topicItemData.content}}</text>
+            </div>
+
+            <!--图片 -->
+            <div style="margin-top: 21px">
+                <div repeat="{{rowItem in newTopicImages}}">
+                    <div style="flex-direction: row">
+                        <div repeat="{{image in rowItem.rowImages}}" style="margin-bottom: 10px">
+                            <image src="{{image}}" class="topic-image" resize="cover"></image>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--评论、点赞、及浏览量 -->
+        <div class="topic-item-bottom">
+            <div class="topic-item-bottom-cell" >
+                <image src="/images/ic_share_topic.png" class="topic-item-bottom-icon" resize="contain"></image>
+                <text class="topic-item-bottom-text">{{topicItemData.readNum}}</text>
+            </div>
+            <image src="/images/ic_topic_divider.png" class="topic-item-bottom-celldivider"></image>
+            <div class="topic-item-bottom-cell">
+                <image src="/images/ic_topic_comment.png" class="topic-item-bottom-icon" resize="contain"></image>
+                <text class="topic-item-bottom-text">{{topicItemData.commentNum}}</text>
+            </div>
+            <image src="/images/ic_topic_divider.png" class="topic-item-bottom-celldivider"></image>
+            <div class="topic-item-bottom-cell">
+                <image src="/images/ic_topic_prise_normal.png" class="topic-item-bottom-icon" resize="contain"></image>
+                <text class="topic-item-bottom-text">{{topicItemData.likeNum}}</text>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style>
+    .wraper{
+        background-color: #ffffff;
+    }
+    .topic-margin{
+        padding-left:28px ;
+        padding-right: 28px;
+    }
+    .portrait-container{
+        flex-direction: row;
+        align-items: center;
+    }
+    .portrait{
+        width: 89px;
+        height: 89px;
+        margin-top: 24px;
+        margin-bottom: 21px;
+        border-radius: 45px;
+    }
+    .nick-container{
+        justify-content: center;
+        margin-left:21px ;
+    }
+    .nick{
+        font-size: 29px;
+        color: #313030;
+        margin-bottom: 14px;
+    }
+    .date{
+        font-size: 21px;
+        color: #999999;
+    }
+    .topic-image{
+        width: 215px;
+        height: 215px;
+        margin-right: 10px ;
+    }
+    .topic-item-bottom{
+        height: 71px;
+        border-top-width: 1px;
+        border-top-color: #b5b5b5;
+        margin-top: 10px;
+        flex-direction: row;
+        align-items: center;
+    }
+    .topic-item-bottom-cell{
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+    .topic-item-bottom-text{
+        font-size:25px ;
+        color: #7a7a7a;
+        margin-left: 10px;
+    }
+    .topic-item-bottom-icon{
+        width: 26px;
+        height: 26px;
+    }
+    .topic-item-bottom-celldivider{
+        width: 1px;
+        height: 38px;
+    }
+    .topic-text{
+        color: #313030;
+        font-size:29px ;
+        line-height:40px ;
+    }
+    .topic-text-cate{
+       color: #00cfc7;
+       position: absolute;
+        font-size:29px
+    }
+</style>
+
+<script>
+    var dom = require('@weex-module/dom');
+    require('weex-components');
+    var columnNum;
+    var rowNum;
+    module.exports = {
+        data:{
+            topicItemData:{
+                id: "",
+                uid: 0,
+                cid: 3,
+                sharedUrl: "",
+                topicType: "image",
+                avatar: "",
+                nickName: "",
+                categoryTitle: "",
+                lastUpdated: "",
+                content: "",
+                readNum: 12,
+                commentNum: 1,
+                likeNum: 5,
+                shareNum: 0,
+                images: [],
+                isLike: false
+            },
+            newTopicImages:[],
+        },
+        created:function(){
+            /**
+             * 更改字体的缩进，使得字体显示不同的颜色
+             */
+            for(var i = 0;i < this.topicItemData.categoryTitle.length+2;i++){
+                this.topicItemData.content = "　"+this.topicItemData.content;
+            }
+            if(this.topicItemData.images.length == 4){
+                columnNum = 2;
+            }else{
+                columnNum = 3;
+            }
+            var topicImageNum = this.topicItemData.images.length;
+            rowNum = parseInt(topicImageNum / columnNum);
+            var temp = topicImageNum % columnNum;
+            if(temp > 0){
+                rowNum = rowNum + 1;
+            }
+            for(var i = 0; i < rowNum;i++){
+               var rowImage = {
+                    rowImages:[],
+                };
+                this.newTopicImages.push(rowImage);
+            }
+            for(var i = 0; i < topicImageNum;i++){
+                var image = this.topicItemData.images[i];
+                var rowIndex = parseInt(i / columnNum);
+                 var rowItem =  this.newTopicImages[rowIndex];
+                 rowItem.rowImages.push(image);
+            }
+        }
+    }
+
+</script>

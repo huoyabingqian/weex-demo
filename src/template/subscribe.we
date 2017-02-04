@@ -1,0 +1,82 @@
+<!--预约页面 -->
+<template>
+    <div class="wraper">
+       <div class="subscribe-menu-wraper">
+            <div class="sport-container">
+                <image src="/images/ic_order_sport.png" class="sport-icon" resize="contain"></image>
+                <text class="sport-text">自由健</text>
+            </div>
+            <div class="sport-container">
+                <image src="/images/ic_order_lesson.png" class="sport-icon" resize="contain"></image>
+                <text class="sport-text">课程预约</text>
+            </div>
+            <div class="sport-container">
+                <image src="/images/ic_health_assessment.png" class="sport-icon" resize="contain"></image>
+                <text class="sport-text">功能测评</text>
+            </div>
+        </div>
+        <div class="close-wraper" onclick="closeOrderMenu">
+            <image src="/images/ic_order_close.png" class="close-icon"></image>
+        </div>
+    </div>
+</template>
+
+
+<style>
+    .wraper{
+        flex:1;
+    }
+    .subscribe-menu-wraper{
+        align-items: center;
+        position: absolute;
+        bottom:100px;
+        left: 0;
+        right: 0;
+    }
+    .close-wraper{
+        position: absolute;
+        bottom: 0;
+        width: 750px;
+        height: 100px;
+        justify-content: center;
+        align-items: center;
+    }
+    .close-icon{
+        width: 35px;
+        height: 35px;
+    }
+    .sport-container{
+        margin-bottom: 110px;
+        align-items: center;
+    }
+    .sport-text{
+        color:#222222;
+        font-size:25px;
+        margin-top: 21px;
+    }
+    .sport-icon{
+        width: 151px;
+        height: 151px;
+    }
+</style>
+
+<script>
+    var navigator = require('@weex-module/navigator');
+    module.exports = {
+        data:{
+
+        },
+        methods:{
+            closeOrderMenu:function(){
+                var self = this;
+                var params = {
+                    'url': 'dist/template/circle.js',
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+            }
+        }
+    }
+</script>

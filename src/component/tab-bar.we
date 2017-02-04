@@ -1,0 +1,96 @@
+<template>
+    <div class="wraper">
+        <embed  class="content" repeat="{{tabItems}}" src="{{src}}" type="weex" style="visibility:{{visibility}}" if="{{showTabBar}}"></embed>
+        <embed  class="content-no-tabbar" repeat="{{tabItems}}" src="{{src}}" type="weex" style="visibility:{{visibility}}" if="{{!showTabBar}}"></embed>
+        <div class="tab-bar-container" if="{{showTabBar}}">
+            <div class="tab-line" if="{{lineVisibilty}}"></div>
+            <div class="tab-bar">
+                <tab-item repeat="{{tabItems}}" title="{{title}}" index="{{index}}" title-color="{{titleColor}}" icon="{{icon}}"></tab-item>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<style>
+    .wraper{
+        width: 750;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .content {
+        position: absolute;
+        top: 0; left: 0;
+        right: 0;
+        bottom: 101px;
+    }
+    .content-no-tabbar{
+        position: absolute;
+        top: 0; left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .tab-bar-container{
+        position: absolute;
+        bottom:0;
+        height: 101px;
+    }
+    .tab-line{
+        width: 750px;
+        height: 1px;
+        background-color: grey;
+    }
+    .tab-bar{
+        flex-direction: row;
+        width: 750px;
+        height: 100px;
+        background-color: #f7f7f7;
+    }
+
+</style>
+
+<script>
+    module.exports = {
+        data:{
+            tabItems:[],
+            selectIndex:0,
+            lineVisibilty:true,
+            selectedColor: '#00cfc7',
+            unselectedColor: '#888888',
+            showTabBar:true,
+        },
+        created:function(){
+            this.selected(this.selectIndex);
+            this.$on("tabItem.OnClick",function(e){
+                var detail = e.detail;
+                this.selectIndex = detail.index;
+                this.selected(this.selectIndex);
+                var params = {
+                    index: detail.index
+                }
+                this.$dispatch('tabBar.onClick', params);
+            })
+        },
+        methods:{
+            selected:function(index){
+                for(var i = 0; i < this.tabItems.length; i++) {
+                    var tabItem = this.tabItems[i];
+                    if(i == index){
+                        tabItem.icon = tabItem.selectedImage;
+                        tabItem.titleColor = this.selectedColor;
+                        tabItem.visibility = 'visible';
+                    }
+                    else {
+                        tabItem.icon = tabItem.image;
+                        tabItem.titleColor = this.unselectedColor;
+                        tabItem.visibility = 'hidden';
+                    }
+                }
+            }
+        }
+    }
+
+</script>

@@ -1,0 +1,47 @@
+<template>
+    <div class="tab-item-container" onclick="onclickitem">
+        <image class="tab-icon" src="{{icon}}"></image>
+        <text class="tab-text" style="color: {{titleColor}}">{{title}}</text>
+    </div>
+</template>
+
+
+
+<style>
+    .tab-item-container{
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .tab-icon{
+        width: 43px;
+        height: 43px;
+    }
+    .tab-text{
+        font-size: 20px;
+        margin-top: 4px;
+    }
+</style>
+
+<script>
+    module.exports = {
+        data:{
+            index:0,
+            title:'',
+            titleColor:'',
+            icon:'',
+        },
+        methods:{
+            onclickitem:function(e){
+                var vm = this;
+
+                var params = {
+                    index: vm.index
+                }
+                this.$dispatch("tabItem.OnClick",params);
+            }
+        }
+    }
+
+</script>

@@ -1,0 +1,25 @@
+<template>
+    <div>
+        <title-bar  height = "{{height}}" background-color="{{backgroundColor}}" title="{{title}}" title-color="{{titleColor}}" title-size="{{titleSize}}"></title-bar>
+    </div>
+
+</template>
+
+
+
+<style></style>
+
+
+<script>
+    require('weex-components');
+    require('../component/title-bar.we');
+    module.exports = {
+        data:{
+            height:100,
+            backgroundColor:"#f7f7f7",
+            title:"我的订单",
+            titleColor:"#2d2d2d",
+            titleSize:32,
+        },
+    }
+</script>

@@ -1,0 +1,139 @@
+<!--健身页面 -->
+<template>
+    <div>
+        <title-bar height="{{height}}" background-color="{{backgroundColor}}" title="{{title}}"
+                   title-color="{{titleColor}}" title-size="{{titleSize}}"></title-bar>
+        <div style="margin-top: {{height}} ">
+            <list>
+                <cell onappear="onappear" ondisappear="ondisappear" repeat="{{sportData}}" index="{{$index}}">
+                    <div class="item-container">
+                        <image src="{{image}}" class="item-image"></image>
+                        <div class="item-text-container">
+
+                            <text class="item-text-title">{{title}}</text>
+
+                            <div class="item-ratingbar-container">
+                                <text class="item-text-degree">{{starName}}</text>
+                                <rating-bar item-width="21px" item-height="21px" item-padding="13px" total-bar-num="5"
+                                            progress-bar-num="{{starNum}}"></rating-bar>
+                            </div>
+
+                            <div class="keywords-container">
+                                <text repeat="{{i in keyWords}}" class="item-text-keywords">{{i}}</text>
+                            </div>
+                        </div>
+                    </div>
+                </cell>
+            </list>
+        </div>
+    </div>
+</template>
+
+
+<style>
+    .item-container {
+        height: 360px;
+        margin-left: 14px;
+        margin-right: 14px;
+        margin-top: 14px;
+    }
+
+    .item-image {
+        height: 360px;
+        border-radius: 6px;
+    }
+
+    .item-text-container {
+        position: absolute;
+        top: 115px;
+        left: 28px;
+    }
+
+    .item-text-title {
+        font-size: 38px;
+        color: #ffffff;
+    }
+
+    .item-text-degree {
+        font-size: 25px;
+        color: #ffffff;
+        margin-right: 20px;
+    }
+
+    .item-text-keywords {
+        font-size: 25px;
+        color: #ffffff;
+        margin-right: 28px;
+    }
+
+    .item-ratingbar-container {
+        flex-direction: row;
+        margin-top: 32px;
+        margin-bottom: 18px;
+        align-items: center;
+    }
+
+    .keywords-container {
+        flex-direction: row;
+        align-items: center;
+    }
+</style>
+
+<script>
+    require('weex-components');
+   // var modal = require('@weex-module/modal');
+    require('../component/title-bar.we');
+    require('../component/rating-bar.we');
+    var apis = require('../../includes/api.js');
+    module.exports = {
+        data: {
+            height: 100,
+            backgroundColor: "#f7f7f7",
+            title: "健身",
+            titleColor: "#2d2d2d",
+            titleSize: 32,
+            sportData: [],
+            /*{"id":48,"image":"http://cdn.qiyestore.com/openapi/upload/2016/08/01/e2UELZQ333.jpg","title":"功能性训练的优势","starName":"中级难度","starNum":3,"keyWords":["大众健身","竞技运动"]},
+             {"id":47,"image":"http://cdn.qiyestore.com/openapi/upload/2016/08/01/uU2k4Jt9Sg.jpg","title":"FMS测试","starName":"高级难度","starNum":5,"keyWords":["FMS测试","人体测试","专业教练测试"]},
+             {"id":35,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/21/754366bLQ2.jpg","title":"功能训练之壶铃篇","starName":"高级难度","starNum":4,"keyWords":["壶铃","力量","稳定性","平衡性"]},
+             {"id":42,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/21/J7O7qaS9h3.jpg","title":"全身训练之半圆球篇","starName":"中级难度","starNum":2,"keyWords":["半圆球","平衡力","灵活性"]},
+             {"id":44,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/21/H3270Tc3z5.jpg","title":"保加利亚训练袋之牛角包篇","starName":"中级难度","starNum":3,"keyWords":["牛角包","负重训练"]},
+             {"id":40,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/29/747d2DyrV6.jpg","title":"稳定训练之TRX悬挂带篇","starName":"高级难度","starNum":4,"keyWords":["悬挂带","稳定","控制"]},
+             {"id":45,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/21/5SdWc152p1.jpg","title":"核心训练之药球篇","starName":"中级难度","starNum":3,"keyWords":["药球","爆发力","控制力"]},
+             {"id":38,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/21/xX8NKtxP34.jpg","title":"再生训练之泡沫轴篇","starName":"中级难度","starNum":3,"keyWords":["再生训练","按摩","放松"]},
+             {"id":39,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/19/emsTe0mj1g.jpg","title":"平衡训练之瑞士球篇","starName":"中级难度","starNum":2,"keyWords":["瑞士球","平衡性","塑形"]},
+             {"id":41,"image":"http://cdn.qiyestore.com/openapi/upload/2016/07/19/8n4G0jd831.jpg","title":"能量系统训练之跑步机篇","starName":"初级难度","starNum":1,"keyWords":["有氧器械","能量代谢","减脂","跑步机"]}*/
+        },
+        created: function () {
+           var self = this;
+            apis.getSportData("", function (ret) {
+                if (ret.status != 200) return;
+                for (var i = 0; i < ret.data.data.length; i++) {
+                    self.sportData.push(ret.data.data[i]);
+                }
+            })
+
+        },
+        methods: {
+            oncellclick:function(e){
+                //点击了某个cell
+                //var storage = require('@weex-module/storage');
+                let navigator = require('@weex-module/navigator');
+                console.log('你点击了cell'+ e.target.attr.index);
+
+               // var bundleUrl = this.$getConfig().bundleUrl;
+               // var base      = apis.getBaseUrl(bundleUrl)+'oneDetail.js?dlg_title='+ this.getResult[e.target.attr.index]['id'];
+                var params = {
+                    'url': 'http://192.168.1.44:8081/dist/template/oneDetail.js',
+                    'animated':'true',
+                }
+                navigator.push(params,function(e){
+                    //callback
+                    console.log('callbackbakc!');
+                });
+
+//                });
+            },
+        }
+    }
+</script>

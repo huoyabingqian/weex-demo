@@ -1,0 +1,231 @@
+<!--圈子页面 -->
+<template>
+    <scroller>
+        <div style="background-color:#f2f2f2 ">
+            <title-bar  height = "{{height}}" background-color="{{backgroundColor}}" title="{{title}}" title-color="{{titleColor}}" title-size="{{titleSize}}" right-item-src="/images/ic_camera.png"></title-bar>
+            <div style="margin-top: {{height+14}};">
+                <!--顶部grid -->
+                <div style="background-color: #ffffff">
+                    <div repeat="{{circleTypeData}}">
+                        <div style="flex-direction: row;">
+                            <div repeat="{{groupData}}" style="flex-direction: row;">
+                                <div class="topic-type-item" onclick="test">
+                                    <image class="topic-type-item-icon" resize="contain" src="{{image}}"></image>
+                                    <text class="topic-type-item-text">{{title}}</text>
+                                </div>
+                                <div class="ver-divider-line"></div>
+                            </div>
+                        </div>
+                        <div class="hor-divider-line" if="{{$index + 1 != rowNum}}"></div>
+                    </div>
+                </div>
+                <!--热门话题讨论区 -->
+                <div class="topic-discuss-div">
+                    <text class="topic-discuss-text">热门话题讨论区</text>
+                </div>
+                <!--帖子列表 -->
+                <div repeat="{{topicItemData in topicItemList}}">
+                    <topic-item topic-item-data="{{topicItemData}}" class="topic-item"></topic-item>
+                </div>
+            </div>
+        </div>
+    </scroller>
+</template>
+
+
+
+<style>
+    .topic-type-item{
+        width: 188px;
+        height: 188px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .topic-type-item-icon{
+        width: 76px;
+        height: 76px;
+    }
+    .topic-type-item-text{
+        font-size: 25px;
+        color: #666666;
+        margin-top: 17px;
+    }
+    .hor-divider-line{
+        height: 1px;
+        width:750px;
+        background-color: #e5e5e5;
+    }
+    .ver-divider-line{
+        width: 1px;
+        height: 188px;
+        background-color: #e5e5e5;
+    }
+    .topic-discuss-text{
+        font-size: 25px;
+        color: #727272;
+
+    }
+    .topic-discuss-div{
+        height: 58px;
+        padding-left: 35px;
+        justify-content: center;
+    }
+    .topic-item{
+        margin-left: 14px;
+        margin-right: 14px;
+        margin-bottom: 14px;
+        border-radius: 6px;
+    }
+</style>
+
+<script>
+    require('../component/title-bar.we');
+    require('../component/topic-item.we');
+    module.exports = {
+        data:{
+            height:100,
+            backgroundColor:"#f7f7f7",
+            title:"圈子",
+            titleColor:"#2d2d2d",
+            titleSize:32,
+            rowNum:0,
+            circleTypeData:[{
+                groupData:[{'title':'肥胖有真爱','image':'http://cdn.qiyestore.com/openapi/upload/2016/06/20/X03935o666.png'},
+                    {'title':'人鱼与马甲','image':'http://cdn.qiyestore.com/openapi/upload/2016/06/20/65d50L364y.png'},
+                    {'title':'健康与美食','image':'http://cdn.qiyestore.com/openapi/upload/2016/08/05/1sgZ0D38M1.png'},
+                    {'title':'最IN活动','image':'http://cdn.qiyestore.com/openapi/upload/2016/06/20/75r92OgcV5.png'}
+                ]
+            },{
+                groupData:[
+                    {'title':'人鱼与马甲','image':'http://cdn.qiyestore.com/openapi/upload/2016/06/20/65d50L364y.png'},
+                    {'title':'健康与美食','image':'http://cdn.qiyestore.com/openapi/upload/2016/08/05/1sgZ0D38M1.png'},
+                    {'title':'最IN活动','image':'http://cdn.qiyestore.com/openapi/upload/2016/06/20/75r92OgcV5.png'},
+                    {'title':'肥胖有真爱','image':'http://cdn.qiyestore.com/openapi/upload/2016/06/20/X03935o666.png'}
+                ]
+            }],
+            topicItemList:[
+                {
+                    "id": 1283,
+                    "uid": 322,
+                    "cid": 3,
+                    "sharedUrl": "http://ejlian.cn/s/rMRzyq",
+                    "topicType": "image",
+                    "avatar": "http://cdn.qiyestore.com/openapi/upload/2016/08/07/sPfXQ3e766.jpg",
+                    "nickName": "love 萄",
+                    "categoryTitle": "人鱼与马甲",
+                    "lastUpdated": "2016-08-09 15:49",
+                    "content": "",
+                    "readNum": 12,
+                    "commentNum": 1,
+                    "likeNum": 5,
+                    "shareNum": 0,
+                    "images": [
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/A2B4P11qiO.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/E3vk5J04JH.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/O55253427o.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/75Lar94379.jpg"
+                    ],
+                    "isLike": false
+                },
+                {
+                    "id": 1282,
+                    "uid": 314,
+                    "cid": 1,
+                    "sharedUrl": "http://ejlian.cn/s/nUfeym",
+                    "topicType": "image",
+                    "avatar": "http://cdn.qiyestore.com/openapi/upload/2016/08/19/947x5Jv4da.jpg",
+                    "nickName": "小e",
+                    "categoryTitle": "健康与美食",
+                    "lastUpdated": "2016-08-09 10:07",
+                    "content": "小e也激动不已，要来说一下：第五金！！！刚刚结束的里约奥运男子200米自由泳决赛，中国选手孙杨以 1:44.65的成绩获得冠军！！！恭喜孙杨！！！破涕为笑，坚持才是最好的习惯",
+                    "readNum": 11,
+                    "commentNum": 9,
+                    "likeNum": 4,
+                    "shareNum": 0,
+                    "images": [
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/79L570L1j6.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/A294kjUGO2.jpg"
+                    ],
+                    "isLike": false
+                },
+                {
+                    "id": 1281,
+                    "uid": 321,
+                    "cid": 1,
+                    "sharedUrl": "http://ejlian.cn/s/muqQVb",
+                    "topicType": "image",
+                    "avatar": "http://wx.qlogo.cn/mmopen/PiajxSqBRaEKcnOialclfLedajJxwymhCxQfHHTTYlutYeY9QTiaKib5iaicU4Gv2LGoVxtxrt6Oc7TQ65h8yZZUnJxw/0",
+                    "nickName": "林老五",
+                    "categoryTitle": "健康与美食",
+                    "lastUpdated": "2016-08-09 09:24",
+                    "content": "山药红豆糕\n1.山药上锅蒸，去皮，压成泥。\n2.红豆泡5小时，大火开锅，开锅后加糖，然后小火熬制粘稠。\n3.红枣切块。\n4.把红枣，红豆放入山药泥搅拌均匀。\n5.想弄成啥样就啥样。",
+                    "readNum": 4,
+                    "commentNum": 0,
+                    "likeNum": 1,
+                    "shareNum": 0,
+                    "images": [
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/1x0C063Cs3.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/N68475125a.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/Rk113Anj59.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/3N63P2n2D5.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/0yT6468VV5.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/611lA4vV47.jpg"
+                    ],
+                    "isLike": false
+                },
+                {
+                    "id": 1280,
+                    "uid": 321,
+                    "cid": 1,
+                    "sharedUrl": "http://ejlian.cn/s/jeuUzu",
+                    "topicType": "image",
+                    "avatar": "http://wx.qlogo.cn/mmopen/PiajxSqBRaEKcnOialclfLedajJxwymhCxQfHHTTYlutYeY9QTiaKib5iaicU4Gv2LGoVxtxrt6Oc7TQ65h8yZZUnJxw/0",
+                    "nickName": "林老五",
+                    "categoryTitle": "健康与美食",
+                    "lastUpdated": "2016-08-09 09:14",
+                    "content": "秋天吃藕，焦香薯饼。\n1.藕切丝，切碎。\n2.肉馅加入鸡蛋，葱姜水，生抽老抽，胡椒粉，淀粉。\n3.加入切好的藕碎搅拌均匀。\n4.下锅煎成金黄色出锅。",
+                    "readNum": 2,
+                    "commentNum": 0,
+                    "likeNum": 1,
+                    "shareNum": 0,
+                    "images": [
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/5c3IN60q9B.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/l482qkHwUc.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/xQ0nr4Jnh1.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/5407VGz4Zk.jpg",
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/uJ548w4zNG.jpg"
+                    ],
+                    "isLike": false
+                },
+                {
+                    "id": 1279,
+                    "uid": 321,
+                    "cid": 1,
+                    "sharedUrl": "http://ejlian.cn/s/q22E73",
+                    "topicType": "image",
+                    "avatar": "http://wx.qlogo.cn/mmopen/PiajxSqBRaEKcnOialclfLedajJxwymhCxQfHHTTYlutYeY9QTiaKib5iaicU4Gv2LGoVxtxrt6Oc7TQ65h8yZZUnJxw/0",
+                    "nickName": "林老五",
+                    "categoryTitle": "健康与美食",
+                    "lastUpdated": "2016-08-09 09:04",
+                    "content": "秋季干燥，这些食物可以去火。\n牛奶解热毒去肝火。\n海带通便。\n蜂蜜排毒养颜。\n黄瓜清热解毒生津止渴。\n猪血解毒清肠补血美容。\n绿豆清热解毒。",
+                    "readNum": 2,
+                    "commentNum": 0,
+                    "likeNum": 2,
+                    "shareNum": 0,
+                    "images": [
+                        "http://cdn.qiyestore.com/openapi/upload/2016/08/09/228EUux974.jpg"
+                    ],
+                    "isLike": false
+                }
+            ],
+        },
+        created:function(){
+            this.rowNum = this.circleTypeData.length;
+        },
+        methods:{
+
+        }
+    }
+</script>
+

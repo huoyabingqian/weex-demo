@@ -1,0 +1,93 @@
+<!--订单页面 -->
+<template>
+    <div style="background-color:#f2f2f2 ">
+        <title-bar  height = "{{height}}" background-color="{{backgroundColor}}" title="{{title}}" title-color="{{titleColor}}" title-size="{{titleSize}}"></title-bar>
+        <div class="order-title" style="margin-top: {{height}};">
+            <text class="  {{currentIndex == 0 ? 'order-title-text-sel' : 'order-title-text'}}" onclick="orderTitleChange(0)">全部</text>
+            <text class="  {{currentIndex == 1 ? 'order-title-text-sel' : 'order-title-text'}}" onclick="orderTitleChange(1)">待付款</text>
+            <text class="  {{currentIndex == 2 ? 'order-title-text-sel' : 'order-title-text'}}" onclick="orderTitleChange(2)">未消费</text>
+            <text class="  {{currentIndex == 3 ? 'order-title-text-sel' : 'order-title-text'}}" onclick="orderTitleChange(3)">已消费</text>
+        </div>
+        <!--指示条 -->
+        <div style="padding-right: 34px;padding-left: 34px">
+            <div id="tabIndicator" class="tab-indicator"></div>
+        </div>
+
+       <div class="order-content">
+           <text style="font-size: 40px">{{orderList[currentIndex]}}</text>
+       </div>
+    </div>
+</template>
+
+<style>
+    .order-title{
+        flex-direction: row;
+        height: 84px;
+        background-color: #ffffff;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .order-title-text{
+       flex: 1;
+       text-align: center;
+       color: #989898;
+        font-size: 30px;
+    }
+    .order-title-text-sel{
+        flex: 1;
+        text-align: center;
+        color: #00D0C6;
+        font-size: 30px;
+    }
+    .tab-indicator{
+        height:3px;
+        width: 120px;
+        background-color: #00D0C6;
+    }
+    .order-content{
+       width: 750px;
+        height: 1048px;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<script>
+    var animation = require('@weex-module/animation');
+    require('../component/title-bar.we');
+    module.exports = {
+        data:{
+            height:100,
+            backgroundColor:"#f7f7f7",
+            title:"我的订单",
+            titleColor:"#2d2d2d",
+            titleSize:32,
+            orderList:['全部','待付款','未消费','已消费'],
+            currentIndex:0,
+        },
+        created:function(){
+
+        },
+        methods:{
+            slideChange: function (e) {
+               this.currentIndex = e.index;
+                this.orderTitleChange(this.currentIndex);
+            },
+            orderTitleChange: function (index) {
+                this.currentIndex = index;
+                var tabIndicatior = this.$el('tabIndicator');
+                var offset = 187.5 * index;
+                animation.transition(tabIndicatior,{
+                    styles: {
+                        transform:'translate('+offset+', 0)' ,
+                    },
+                    duration: 200, //ms
+                    timingFunction: 'ease',
+                    'transform-origin': 'center center', //中间有连字符，最好加上影号
+                },function(){
+                })
+            }
+        }
+    }
+</script>

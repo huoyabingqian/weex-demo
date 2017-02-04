@@ -1,0 +1,144 @@
+<!--我的页面 -->
+<template>
+    <scroller show-scrollbar="false">
+        <div class="wrapper">
+            <div class="header">
+                <!--背景 -->
+                <image src="/images/bg_member_center.png" class="header-bg"></image>
+                <!--设置及消息图标 -->
+                <div class="setting_container">
+                    <image src="/images/ic_member_setting.png" class="setting_icon"></image>
+                    <image src="/images/ic_member_no_news.png" class="news_icon"></image>
+                </div>
+
+                <image class="portrait" src="/images/ic_default_head.png"></image>
+                <!--未登录-->
+                <text class="register-login head-text" if="{{!isLoagin}}">注册/登录</text>
+                <!--已登录 -->
+                <div class="nickname-signature" if="{{isLoagin}}">
+                    <text class="head-text">自由健</text>
+                    <text class="head-text signature">我的未来</text>
+                </div>
+            </div>
+
+            <div class="item-group">
+                <div class="divider" onclick="goMyPublish">
+                    <mine-item left-image="/images/ic_member_publish.png" item-text="我的发布" icon-width = 38px icon-height = 30px></mine-item>
+                </div>
+                <mine-item left-image="/images/ic_member_order.png" item-text="我的订单" icon-width = 28px icon-height = 30px onclick="goMyOrder"></mine-item>
+            </div>
+
+            <div class="item-group">
+                <div class="divider">
+                     <mine-item left-image="/images/ic_member_discount.png" item-text="我的优惠券" icon-width = 33px icon-height = 28px></mine-item>
+                </div>
+                <mine-item left-image="/images/ic_order_balance.png" item-text="我的钱包" icon-width = 33px icon-height = 28px></mine-item>
+            </div>
+
+            <div class="item-group">
+                <div class="divider">
+                    <mine-item left-image="/images/ic_member_pro.png" item-text="评测档案" icon-width = 35px icon-height = 32px></mine-item>
+                </div>
+                <div class="divider">
+                    <mine-item left-image="/images/ic_member_share.png" item-text="分享e健炼" icon-width = 35px icon-height = 32px></mine-item>
+                </div>
+                <mine-item left-image="/images/ic_member_feedback.png" item-text="意见反馈" icon-width = 35px icon-height = 32px></mine-item>
+            </div>
+        </div>
+    </scroller>
+</template>
+
+
+
+<style>
+    .wrapper{
+        background-color: #f2f2f2;
+    }
+    .header{
+        height: 438px;
+        width: 750px;
+        align-items: center;
+        justify-content: center;
+    }
+    .header-bg{
+        height: 438px;
+        width: 750px;
+        position: absolute;
+        left:0;
+        top:0;
+    }
+    .portrait{
+        width: 160px;
+        height: 160px;
+    }
+    .register-login{
+        margin-top:28px;
+    }
+    .nickname-signature{
+        align-items: center;
+        justify-content: center;
+        margin-top: 25px;
+    }
+    .head-text{
+        font-size: 29px;
+        color: #ffffff;
+    }
+    .signature{
+        margin-top: 24px;
+    }
+    .item-group{
+        padding-left: 28px;
+        margin-top: 21px;
+        background-color: #ffffff;
+    }
+    .setting_container{
+       flex-direction: row;
+        position: absolute;
+        right:35px;top: 35px;
+    }
+    .setting_icon{
+        width:38px;
+        height: 38px;
+    }
+    .news_icon{
+      width:46px;
+      height: 38px;
+      margin-left: 35px;
+    }
+    .divider{
+        border-bottom-style:solid;
+        border-bottom-width:1px;
+        border-bottom-color:#c0bebe;
+    }
+</style>
+
+<script>
+    var navigator = require('@weex-module/navigator');
+    require('../component/mine-item.we');
+    module.exports = {
+        data:{
+            isLoagin:false,
+        },
+        methods:{
+            goMyPublish:function(){
+               var params = {
+                    'url': 'http://192.168.1.44:8081/dist/template/mytopic.js',
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+
+            },
+            goMyOrder:function(){
+                var params = {
+                    'url': 'http://192.168.1.44:8081/dist/template/myorder.js',
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                    //callback
+                });
+            }
+        }
+    }
+</script>

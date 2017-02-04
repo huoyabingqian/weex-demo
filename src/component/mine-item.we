@@ -1,0 +1,50 @@
+<template>
+    <div class="wraper">
+        <div class="wraper-left">
+            <image src="{{leftImage}}"  style="width: {{iconWidth}};height: {{iconHeight}}" resize="contain"></image>
+            <text class="item-text">{{itemText}}</text>
+        </div>
+        <image src="/images/ic_indicator_right.png" class="item-right-icon"></image>
+    </div>
+</template>
+
+
+<style>
+    .wraper{
+        width: 750px;
+        height: 97px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 24px;
+
+    }
+    .wraper-left{
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .item-right-icon{
+        width: 15px;
+        height: 28px;
+        margin-right: 28px;
+    }
+    .item-text{
+        color: #333333;
+        font-size: 29px;
+        margin-left:24px ;
+    }
+</style>
+
+
+<script>
+    module.exports = {
+        data:{
+            leftImage:'',
+            itemText:'',
+            isShowArrow:true,
+            iconWidth:38,
+            iconHeight:30,
+        },
+    }
+</script>

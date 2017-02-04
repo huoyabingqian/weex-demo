@@ -1,0 +1,80 @@
+<template>
+  <div>
+   <tab-bar tab-items = "{{tabItems}}"> </tab-bar>
+  </div>
+</template>
+
+<style>
+
+</style>
+
+<script>
+  var modal = require('@weex-module/modal');
+  require('weex-components');
+  require('../component/tab-bar.we')
+ var url =  require('../../includes/config.js');
+  module.exports = {
+    data: {
+      tabItems: [
+        {
+          index: 0,
+          title: '健身',
+          titleColor: '#888888',
+          icon: '/images/ic_main_jianshen_normal.png',
+          image: '/images/ic_main_jianshen_normal.png',
+          selectedImage: '/images/ic_main_jianshen_select.png',
+          src: 'dist/template/sport.js',
+          visibility: 'visible',
+        },
+        {
+          index: 1,
+          title: '圈子',
+          titleColor: '#888888',
+          icon: '/images/ic_main_quanzi_normal.png',
+          image: '/images/ic_main_quanzi_normal.png',
+          selectedImage: '/images/ic_main_quanzi_select.png',
+          src: 'dist/template/circle.js',
+          visibility: 'visible',
+        },
+        {
+          index: 2,
+          title: '预约',
+          titleColor: '#888888',
+          icon: '/images/ic_main_yuyue_normal.png',
+          image: '/images/ic_main_yuyue_normal.png',
+          selectedImage: '/images/ic_main_yuyue_select.png',
+          src: 'dist/template/subscribe.js',
+          visibility: 'visible',
+        },
+        {
+          index:3,
+          title: '订单',
+          titleColor: '#888888',
+          icon: '/images/ic_main_order_normal.png',
+          image: '/images/ic_main_order_normal.png',
+          selectedImage: '/images/ic_main_order_select.png',
+          src: 'dist/template/order.js',
+          visibility: 'visible',
+        },
+        {
+          index:4,
+          title: '我的',
+          titleColor: '#888888',
+          icon: '/images/ic_main_me_normal.png',
+          image: '/images/ic_main_me_normal.png',
+          selectedImage: '/images/ic_main_me_select.png',
+          src: 'dist/template/mine.js',
+          visibility: 'visible',
+        }
+      ],
+    },
+    created:function(){
+     var bundleUrls = this.$getConfig().bundleUrl;
+      for(var i = 0; i < this.tabItems.length; i++) {
+        var tabItem = this.tabItems[i];
+        tabItem.src = bundleUrls + tabItem.src;
+      }
+    },
+    methods:{}
+  }
+</script>
